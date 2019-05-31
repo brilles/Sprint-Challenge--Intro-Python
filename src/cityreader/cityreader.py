@@ -88,7 +88,7 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=cities):
 
   for city in cities:
     # go through each city and see if it lies in the square of the 4 points
-    if city.lat > upperleft[0] and city.lat < lowerright[0] and city.lon > lowerright[1] and city.lon < upperleft[1]:
+    if city.lat >= upperleft[0] and city.lat <= lowerright[0] and city.lon >= lowerright[1] and city.lon <= upperleft[1]:
       within.append(f"{city.name}: ({city.lat}, {city.lon})")
 
   return within
