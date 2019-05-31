@@ -71,7 +71,7 @@ for c in cities:
 
 # TODO Get latitude and longitude values from the user
 
-def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+def cityreader_stretch(lat1, lon1, lat2, lon2, cities=cities):
   # within will hold the cities that fall within the specified region
   within = []
 
@@ -79,4 +79,35 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
+  #given
+  upperright = [lat1, lon1]
+  lowerleft = [lat2, lon2]
+  #calculated
+  upperleft = [lat2, lon1]
+  lowerright = [lat1, lon2]
+
+  for city in cities:
+    # go through each city and see if it lies in the square of the 4 points
+    if city.lat > upperleft[0] and city.lat < lowerright[0] and city.lon > lowerright[1] and city.lon < upperleft[1]:
+      within.append(f"{city.name}: ({city.lat}, {city.lon})")
+
   return within
+
+while True:
+  point1 = input("\n Enter upper right lat1,lon1: ").split(",")  
+  coordinate1 = [float(i) for i in point1]
+  if len(coordinate1) != 2:
+    print("Incorrect usage. Follow this input form 45,-100")
+    break
+
+  point2 = input("\n Enter lower left lat2,lon2: ").split(",")
+  coordinate2 = [float(i) for i in point2]
+  if len(coordinate2) != 2:
+    print("Incorrect usage. Follow this input form 45,-100")
+    break
+
+  cities_within = cityreader_stretch(coordinate1[0], coordinate1[1], coordinate2[0], coordinate2[1])
+  for i in cities_within:
+    print(i)
+  break
+
